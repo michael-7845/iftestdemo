@@ -1,0 +1,25 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# Debug
+src/main/java/my/lab
+src/test/java/my/lab
+files/
+
+# result
+result/_RECORD_
+result/real

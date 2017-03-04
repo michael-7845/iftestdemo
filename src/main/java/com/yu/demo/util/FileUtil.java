@@ -13,14 +13,17 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import static com.yu.demo.util.MyProperties.*;
+
 public class FileUtil {
 	
 	static private String DEFAULT_RESULT_FOLDER_NAME = "result";
-	static private String RESULTFOLDER_PROP = "chk.result.folder";
-	static private String EXPECT_PROP = "chk.expect"; 
-	static private String REAL_PROP = "chk.real";
-	static private String RECORD_PROP = "chk.record";
-	static private PropertyPlaceholderConfigurer config;
+	
+//	static private String RESULTFOLDER_PROP = "chk.result.folder";
+//	static private String EXPECT_PROP = "chk.expect"; 
+//	static private String REAL_PROP = "chk.real";
+//	static private String RECORD_PROP = "chk.record";
+//	static private PropertyPlaceholderConfigurer config;
 	
 //	static {
 //		@SuppressWarnings("resource")
@@ -29,9 +32,9 @@ public class FileUtil {
 //	}
 	
 	
-	static private String EXPECT_FOLDER_NAME = SpringPropertyResourceReader.getProperty(EXPECT_PROP);
-	static private String REAL_FOLDER_NAME = SpringPropertyResourceReader.getProperty(REAL_PROP); //"real";
-	static private String RECORD_FOLDER_NAME = SpringPropertyResourceReader.getProperty(RECORD_PROP); //"_RECORD_";
+//	static private String EXPECT_FOLDER_NAME = getValue(EXPECT_PROP); //SpringPropertyResourceReader.getProperty(EXPECT_PROP);
+//	static private String REAL_FOLDER_NAME = getValue(REAL_PROP); //SpringPropertyResourceReader.getProperty(REAL_PROP); //"real";
+//	static private String RECORD_FOLDER_NAME = getValue(RECORD_PROP); //SpringPropertyResourceReader.getProperty(RECORD_PROP); //"_RECORD_";
 	static private String ENCODE = "utf-8";
 	
 	// 读取指定文本文件
@@ -102,9 +105,12 @@ public class FileUtil {
 	 */
 	private static File eorFile(String eor, String api, String casename) {
 		String parent = "";
-		if(SpringPropertyResourceReader.containsProperty(RESULTFOLDER_PROP) && 
-			(SpringPropertyResourceReader.getProperty(RESULTFOLDER_PROP).trim().length()>0)) {
-			parent = SpringPropertyResourceReader.getProperty(RESULTFOLDER_PROP).trim();
+//		if(SpringPropertyResourceReader.containsProperty(RESULTFOLDER_PROP) && 
+//			(SpringPropertyResourceReader.getProperty(RESULTFOLDER_PROP).trim().length()>0)) {
+//			parent = SpringPropertyResourceReader.getProperty(RESULTFOLDER_PROP).trim();
+		
+		if(contains(RESULTFOLDER_PROP) && (getValue(RESULTFOLDER_PROP).length()>0)) {
+			parent = getValue(RESULTFOLDER_PROP);
 		} else {
 			parent = DEFAULT_RESULT_FOLDER_NAME;
 		}
@@ -113,15 +119,15 @@ public class FileUtil {
 	}
 	
 	public static File expectFile(String api, String casename) {
-		return eorFile(EXPECT_FOLDER_NAME, api, casename);
+		return eorFile(getValue(EXPECT_PROP), api, casename);
 	}
 	
 	public static File realFile(String api, String casename) {
-		return eorFile(REAL_FOLDER_NAME, api, casename);
+		return eorFile(getValue(REAL_PROP), api, casename);
 	}
 	
 	public static File recordFile(String api, String casename) {
-		return eorFile(RECORD_FOLDER_NAME, api, casename);
+		return eorFile(getValue(RECORD_PROP), api, casename);
 	}
 	
 	public static void writeExpect(String api, String casename, String json) {

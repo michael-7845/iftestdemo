@@ -93,6 +93,13 @@ public class FileUtil {
 		return f;
 	}
 	
+	/**
+	 * 
+	 * @param eor - expect or real
+	 * @param api - api name
+	 * @param casename
+	 * @return
+	 */
 	private static File eorFile(String eor, String api, String casename) {
 		String parent = "";
 		if(SpringPropertyResourceReader.containsProperty(RESULTFOLDER_PROP) && 

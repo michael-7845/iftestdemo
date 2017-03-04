@@ -10,8 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.support.PropertiesLoaderSupport;  
 
 public class SpringPropertyResourceReader {  
-    private static ApplicationContext applicationContext=new   
-    ClassPathXmlApplicationContext("spring-config.xml");  
+    private static ApplicationContext applicationContext=new ClassPathXmlApplicationContext("spring-config.xml");  
     private static AbstractApplicationContext abstractContext = (AbstractApplicationContext) applicationContext;  
     private static Properties properties = new Properties(); 
     
@@ -51,8 +50,7 @@ public class SpringPropertyResourceReader {
                       
                     properties.putAll(props);  
                 }  
-            }  
-              
+            }    
         }catch(Exception e){  
             throw new RuntimeException(e);  
         }  

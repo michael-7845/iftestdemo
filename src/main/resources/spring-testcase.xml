@@ -1,0 +1,80 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    ">
+
+    <!-- src/main/java -->
+    <bean id="testcaseSelector" class="com.yu.demo.util.TestcaseSelector">
+      <property name="apiList">
+        <list>
+          <value>/prices/mgets</value>
+          <!-- 
+          <value>/class/find.html</value>
+          <value>/recipe/find.html</value>
+          -->
+        </list>
+      </property>
+      <property name="nameList">
+        <list>
+          <value>cook001</value>
+          <value>cook002</value>
+          <value>cook003</value>
+          <value>cook006</value>
+          <value>cook007</value>
+        </list>
+      </property>
+    </bean>
+    
+    <bean id="jsonExcludingConfig" class="com.yu.demo.checker.JsonExcludingConfig">
+      <property name="excluding">
+        <map>
+          <entry key="img" value="img\d+(.*)$"/>
+          <entry key="rectImg" value="img\d+(.*)$"/>
+          <entry key="squareImg" value="img\d+(.*)$"/>
+        </map>
+      </property>
+    </bean>
+    
+    <!-- src/test/java -->
+    <bean id="basicChecker" class="com.yu.demo.checker.BasicChecker"/>
+    <bean id="entityChecker" class="com.yu.demo.checker.EntityChecker"/>
+    <bean id="arrayEntityChecker" class="com.yu.demo.checker.ArrayEntityChecker"/>
+    <bean id="objectEntityChecker" class="com.yu.demo.checker.ObjectEntityChecker"/>
+    <bean id="httpSampler" class="com.yu.demo.sampler.HttpSampler"/>
+    <bean id="appGwSampler" class="com.yu.demo.sampler.AppGwSampler"/>
+    
+    <bean id="allRunner" class="com.yu.demo.runner.TestCaseRunner">
+      <property name="sampler" ref="httpSampler"/>
+      <property name="checklist">
+        <list>
+          <ref bean="basicChecker"/>
+          <ref bean="entityChecker"/> <!--  --> 
+        </list>
+      </property>
+    </bean>
+    
+    <bean id="byNameRunner" class="com.yu.demo.runner.TestCaseRunner">
+      <property name="sampler" ref="appGwSampler"/>
+      <property name="checklist">
+        <list>
+          <ref bean="objectEntityChecker"/> <!-- <ref bean="basicChecker"/> "entityChecker"--> 
+        </list>
+      </property>
+    </bean>
+    
+    <bean id="byApiRunner" class="com.yu.demo.runner.TestCaseRunner">
+      <property name="sampler" ref="httpSampler"/>
+      <property name="checklist">
+        <list>
+          <ref bean="basicChecker"/>
+          <ref bean="arrayEntityChecker"/> <!--  --> 
+        </list>
+      </property>
+    </bean>
+
+</beans>

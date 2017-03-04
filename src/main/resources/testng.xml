@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+  <test name="Test">
+    <classes>
+      <!-- 
+      <class name="com.yu.demo.runner.ByNameRunner"/>
+      -->
+      <class name="com.yu.demo.common.dao.TestCaseDaoH4Tester"/>
+      <!--
+      <class name="com.jd.panda.djcifta.demo.TestDemo"/>
+      <class name="com.jd.panda.djcifta.dao.TestDataDaoH4Tester"/>
+      <class name="com.jd.panda.djcifta.util.EnvTester"/> 
+      <class name="com.jd.panda.djcifta.util.JsonTester"/>
+      <class name="com.jd.panda.djcifta.util.JsonTester2"/>
+      <class name="com.jd.panda.djcifta.service.TestCaseServiceImplTester"/>
+      <class name="com.jd.panda.djcifta.util.HttpClientUtilTester"/>
+      <class name="com.jd.panda.djcifta.db.TestCaseTester"/>
+      <class name="com.jd.panda.djcifta.runner.AllRunner"/>
+      <class name="com.jd.panda.djcifta.runner.ByApiRunner"/>
+      <class name="com.jd.panda.djcifta.runner.ByNameRunner"/>
+      <class name="com.jd.panda.djcifta.runner.ByNameRunner"/> 
+      <class name="my.lab.testng.DataProviderTester"/>
+      <class name="my.lab.testng.AllAPITestCaseTester"/>
+      <class name="my.lab.testng.ByApiTestCaseTester"/>
+      <class name="my.lab.testng.ByApiTestCaseTester"/>
+      <class name="my.lab.testng.ByTcNameTestCaseTester"/>
+      -->
+      
+    </classes>
+  </test> <!-- Test -->
+  
+  <listeners>
+    <listener class-name="org.uncommons.reportng.HTMLReporter" />
+    <listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+  </listeners>
+  <usedefaultlisteners name="false" />
+    
+</suite> <!-- Suite -->

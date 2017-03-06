@@ -5,19 +5,20 @@ import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.yu.demo.db.TestCase;
-import com.yu.demo.util.Configuration;
 
+@ContextConfiguration(locations = { "classpath*:/spring-config.xml" })  
 public class ByApiRunner extends BaseRunner {
 	
 	@DataProvider
 	public Object[][] byApiTestCase() {
 		List<TestCase> tcs = new ArrayList<TestCase>();
-		for(String api: CaseConfig.tcSelector.getApiList()) {
-			tcs.addAll(Configuration.serv.byApi(api));
+		for(String api: selector.getApiList()) {
+			tcs.addAll(serv.byApi(api));
 		}
 		int size = tcs.size();
 		if(size > 0) {

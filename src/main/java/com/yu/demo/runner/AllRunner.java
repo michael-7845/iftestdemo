@@ -1,19 +1,21 @@
 package com.yu.demo.runner;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.yu.demo.db.TestCase;
 
+@ContextConfiguration(locations = { "classpath*:/spring-config.xml" })  
 public class AllRunner extends BaseRunner {
+	
 	@DataProvider
 	public Object[][] allTestCase() {
-		List<TestCase> tcs = Configuration.serv.all();
+		List<TestCase> tcs = this.serv.all();
 		int size = tcs.size();
 		if(size > 0) {
 			Object[][] result = new Object[tcs.size()][];
@@ -28,7 +30,7 @@ public class AllRunner extends BaseRunner {
 	@BeforeClass
 	public void init() {
 		ApplicationContext ctx =new ClassPathXmlApplicationContext("spring-config.xml");
-		runner = (TestCaseRunner) ctx.getBean("AllRunner");
+		runner = (TestCaseRunner) ctx.getBean("allRunner");
 	}
 	
 	@Test(dataProvider="allTestCase")

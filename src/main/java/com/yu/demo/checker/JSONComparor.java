@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import static com.yu.demo.util.MyProperties.*;
@@ -87,11 +90,15 @@ public class JSONComparor {
 	private static boolean compareExcluding() {
 //		System.out.println(CaseConfig.exJson.getExcluding());
 //		System.out.println(getCmpResult().size());
+		
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config.xml");
+		JsonExcludingConfig exJson = (JsonExcludingConfig) ctx.getBean("jsonExcludingConfig");
+		
 		for(String[] sa: cmpResult) {
 			String s1 = sa[0], s2 = sa[1], key = sa[2], reg = "";
-//			System.out.println(String.format("key[%s] - %s : %s", key, s1, s2));
-			if(CaseConfig.exJson.getExcluding().containsKey(key)) {
-				reg = CaseConfig.exJson.getExcluding().get(key);
+			//ykm
+			if(exJson.getExcluding().containsKey(key)) {
+				reg = exJson.getExcluding().get(key);
 			} else {
 				System.out.println(String.format("no excluding, key[%s] - %s != %s", key, s1, s2));
 				return false; //无例外,不相等

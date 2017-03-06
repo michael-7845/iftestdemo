@@ -8,8 +8,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.alibaba.fastjson.JSON;
 import com.yu.demo.db.TestCase;
-import com.yu.demo.util.Configuration;
 import com.yu.demo.util.IResult;
+import com.yu.demo.util.MyProperties;
 
 public class AppGwSampler implements ISampler {
 	
@@ -34,7 +34,7 @@ public class AppGwSampler implements ISampler {
         param.remove("keyListStr");
 //        String urlTpl = "http://api.m.jd.com/client.action?functionId={functionId}&body={body}&client={client}&clientVersion={clientVersion}&" +
 //                "st={st}&sv={sv}&uuid={uuid}&sign={sign}";
-        URL urlpre = Configuration.makeUrl("client.action");
+        URL urlpre = MyProperties.makeUrl("client.action");
         String urlTpl = urlpre.toString() + "?functionId={functionId}&body={body}&client={client}&clientVersion={clientVersion}&" +
                 "st={st}&sv={sv}&uuid={uuid}&sign={sign}";
         String apiResult = template.getForObject(urlTpl, String.class, param);

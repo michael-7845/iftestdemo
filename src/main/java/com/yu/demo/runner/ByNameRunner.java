@@ -5,20 +5,21 @@ import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.yu.demo.db.TestCase;
-import com.yu.demo.util.Configuration;
 
+@ContextConfiguration(locations = { "classpath*:/spring-config.xml" }) 
 public class ByNameRunner extends BaseRunner {
 	
 	@DataProvider
 	public Object[][] byTcNameTestCase() {
 		List<TestCase> tcs = new ArrayList<TestCase>();
-		for(String tcname: CaseConfig.tcSelector.getNameList()) {
-			tcs.addAll(Configuration.serv.byTcName(tcname));
+		for(String tcname: selector.getNameList()) {
+			tcs.addAll(serv.byTcName(tcname));
 		}
 		int size = tcs.size();
 		if(size > 0) {

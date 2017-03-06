@@ -22,7 +22,8 @@
 	</bean>
      
     <import resource="spring-hibernate.xml"/>
+    <import resource="spring-beans.xml"/>
     <!-- <import resource="spring-env.xml"/> -->
-    <!-- <import resource="spring-testcase.xml"/> -->
+    <import resource="spring-testcase.xml"/>
 
 </beans>

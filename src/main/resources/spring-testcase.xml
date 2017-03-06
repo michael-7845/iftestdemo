@@ -8,15 +8,13 @@
     http://www.springframework.org/schema/context/spring-context-3.2.xsd
     ">
 
-    <!-- src/main/java -->
+    <!-- CASE SELECT: BY API or NAME -->
     <bean id="testcaseSelector" class="com.yu.demo.util.TestcaseSelector">
       <property name="apiList">
         <list>
           <value>/prices/mgets</value>
-          <!-- 
           <value>/class/find.html</value>
           <value>/recipe/find.html</value>
-          -->
         </list>
       </property>
       <property name="nameList">
@@ -30,6 +28,7 @@
       </property>
     </bean>
     
+    <!-- JSON CHECKER: EXEMPTION -->
     <bean id="jsonExcludingConfig" class="com.yu.demo.checker.JsonExcludingConfig">
       <property name="excluding">
         <map>
@@ -40,7 +39,7 @@
       </property>
     </bean>
     
-    <!-- src/test/java -->
+    <!-- CHECKERS -->
     <bean id="basicChecker" class="com.yu.demo.checker.BasicChecker"/>
     <bean id="entityChecker" class="com.yu.demo.checker.EntityChecker"/>
     <bean id="arrayEntityChecker" class="com.yu.demo.checker.ArrayEntityChecker"/>
@@ -48,6 +47,7 @@
     <bean id="httpSampler" class="com.yu.demo.sampler.HttpSampler"/>
     <bean id="appGwSampler" class="com.yu.demo.sampler.AppGwSampler"/>
     
+    <!-- RUNNERS -->
     <bean id="allRunner" class="com.yu.demo.runner.TestCaseRunner">
       <property name="sampler" ref="httpSampler"/>
       <property name="checklist">
@@ -62,7 +62,8 @@
       <property name="sampler" ref="appGwSampler"/>
       <property name="checklist">
         <list>
-          <ref bean="objectEntityChecker"/> <!-- <ref bean="basicChecker"/> "entityChecker"--> 
+          <ref bean="objectEntityChecker"/>
+          <!-- <ref bean="basicChecker"/> "entityChecker"--> 
         </list>
       </property>
     </bean>
@@ -72,7 +73,8 @@
       <property name="checklist">
         <list>
           <ref bean="basicChecker"/>
-          <ref bean="arrayEntityChecker"/> <!--  --> 
+          <ref bean="objectEntityChecker"/>
+          <!-- <ref bean="arrayEntityChecker"/>  --> 
         </list>
       </property>
     </bean>

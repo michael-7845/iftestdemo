@@ -5,9 +5,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import com.yu.demo.db.TestCase;
-import com.yu.demo.util.Configuration;
 import com.yu.demo.util.HttpClientUtil;
 import com.yu.demo.util.IResult;
+import com.yu.demo.util.MyProperties;
 
 public class HttpSampler implements ISampler {
 
@@ -21,7 +21,7 @@ public class HttpSampler implements ISampler {
 //		} catch (MalformedURLException e) {
 //			e.printStackTrace();
 //		}
-		URL url = Configuration.makeUrl(tc.getApi());
+		URL url = MyProperties.makeUrl(tc.getApi());
 		
 		IResult result = null;
     	try {

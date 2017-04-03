@@ -3,6 +3,7 @@ package com.yu.demo.runner;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.yu.demo.util.TestcaseSelector;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,9 +13,14 @@ import org.testng.annotations.Test;
 
 import com.yu.demo.db.TestCase;
 
+import javax.annotation.Resource;
+
 @ContextConfiguration(locations = { "classpath*:/spring-config.xml" }) 
 public class ByNameRunner extends BaseRunner {
-	
+
+	@Resource(name="testcaseSelector")
+	public TestcaseSelector selector;
+
 	@DataProvider
 	public Object[][] byTcNameTestCase() {
 		List<TestCase> tcs = new ArrayList<TestCase>();

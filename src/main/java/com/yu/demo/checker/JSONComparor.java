@@ -34,7 +34,9 @@ public class JSONComparor {
 		}else if(json1 instanceof String ){
 			compareJson((String) json1 ,(String) json2,key);
 		}else {
-			compareJson(json1.toString(), json2.toString(), key);
+			String json1Str = (json1==null) ? "" : json1.toString();
+			String json2Str = (json2==null) ? "" : json2.toString();
+			compareJson(json1Str, json2Str, key);
 		}
 	}
 	
@@ -59,23 +61,44 @@ public class JSONComparor {
 		return cmpResult;
 	}
 
+	public static void debugCmpResult() {
+		for(String[] sa: cmpResult) {
+			System.out.print(sa + ": ");
+			for(String s: sa) {
+				System.out.print(s + ", ");
+			}
+			System.out.println("");
+		}
+	}
+
 	// m1.size()==m2.size(), m1.keys==m2.keys
 	public static boolean compare(Map<String,Object> m1, Map<String,Object> m2) {
 		cmpResult.clear();
+		// 只有size和keySet相同才有比较的必要
 		if( (m1.size() == m2.size()) && (m1.keySet().equals(m2.keySet())) ) {
+			//逐个比较每项, 在CompareJson()中会把不相等的放到cmpResult中
 			for(String key: m1.keySet()) {
 //				System.out.println(String.format("%s(%s) : %s(%s)", 
 //						key, key.getClass(), m1.get(key), m1.get(key).getClass()));
 				compareJson(m1.get(key), m2.get(key), key);
 			}
+			//如果cmpResult为空, 表明没有不相等的项, 返回true, 表示相等
 			if(cmpResult.size()==0)
 				return true;
-			else
+			else {
+				System.out.println("michael: " + cmpResult);
+				debugCmpResult();
+				//如果cmpResult不为空, 在compareExcluding函数中进一步比较
 				return compareExcluding();
+			}
+
 		}
 		return false;	
 	}
-	
+
+	//根据正则规则, 比较是否相等
+	//提取出的组进行比较
+	//如果想跳过比较, 正则表达式可以写为"()"即可
 	private static boolean compareEx(String s1, String s2, String reg) {
 		Pattern p = Pattern.compile(reg);
 		Matcher m1 = p.matcher(s1);
@@ -96,14 +119,17 @@ public class JSONComparor {
 		
 		for(String[] sa: cmpResult) {
 			String s1 = sa[0], s2 = sa[1], key = sa[2], reg = "";
-			//ykm
+			//yukemin: 如果是申明了的例外, 那么获得正则规则, 继续比较;
+			//如果没有申明的例外, 且不相等, 那么打印不等, 返回false, 表示不相等
 			if(exJson.getExcluding().containsKey(key)) {
 				reg = exJson.getExcluding().get(key);
 			} else {
 				System.out.println(String.format("no excluding, key[%s] - %s != %s", key, s1, s2));
 				return false; //无例外,不相等
 			}
-			
+
+			//compareEx比较, 根据正则规则提取出的组(部分内容),对组的值进行比较
+			//如果组的值不等, 那么不满足预期, 返回false, 表示不相等
 			if(!compareEx(s1, s2, reg)) {
 				System.out.println(String.format("key[%s] - %s != %s", key, s1, s2));
 				return false;

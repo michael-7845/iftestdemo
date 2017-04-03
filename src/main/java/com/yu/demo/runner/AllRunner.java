@@ -10,7 +10,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.yu.demo.db.TestCase;
 
-@ContextConfiguration(locations = { "classpath*:/spring-config.xml" })  
+@ContextConfiguration(locations = { "classpath*:/spring-config.xml" })
 public class AllRunner extends BaseRunner {
 	
 	@DataProvider

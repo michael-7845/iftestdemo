@@ -38,7 +38,7 @@ public class FileUtil {
 	static private String ENCODE = "utf-8";
 	
 	// 读取指定文本文件
-	public static String read(File f) {  
+	public static String read(File f, boolean isTrimed) {
         StringBuilder str = new StringBuilder();  
         BufferedReader in = null;  
         try {   
@@ -46,8 +46,14 @@ public class FileUtil {
         			(new FileInputStream(f), ENCODE));
             String s;  
             try {  
-                while ((s = in.readLine()) != null)  
-                    str.append(s.trim());  // + '\n'
+                while ((s = in.readLine()) != null) {
+					if(isTrimed) {
+						str.append(s.trim());  // + '\n'
+					} else {
+						str.append(s).append('\n');
+					}
+				}
+
             } finally {  
                 in.close();  
             }  
@@ -55,11 +61,15 @@ public class FileUtil {
             e.printStackTrace();  
         }  
         return str.toString();  
-    } 
+    }
+
+	public static String read(File f) {
+		return read(f, true);
+	}
 	
 	// 写入指定的文本文件，append为true表示追加，false表示重头开始写，  
     //text是要写入的文本字符串，text为null时直接返回  
-    public static void write(File f, boolean append, String text) {  
+    public static void write(File f, boolean append, String text) {
         if (text == null)  
             return;  
         try {  
@@ -134,24 +144,36 @@ public class FileUtil {
 		write(expectFile(api, casename), false, json);
 	}
 	
+	public static String readExpect(String api, String casename, boolean isTrimed) {
+		return read(expectFile(api, casename), isTrimed);
+	}
+
 	public static String readExpect(String api, String casename) {
-		return read(expectFile(api, casename));
+		return readExpect(api, casename, true);
 	}
 	
 	public static void writeReal(String api, String casename, String json) {
 		write(realFile(api, casename), false, json);
 	}
 	
+	public static String readReal(String api, String casename, boolean isTrimed) {
+		return read(realFile(api, casename), isTrimed);
+	}
+
 	public static String readReal(String api, String casename) {
-		return read(realFile(api, casename));
+		return readReal(api, casename, true);
 	}
 	
 	public static void writeRecord(String api, String casename, String json) {
 		write(recordFile(api, casename), false, json);
 	}
 	
+	public static String readRecord(String api, String casename, boolean isTrimed) {
+		return read(recordFile(api, casename), isTrimed);
+	}
+
 	public static String readRecord(String api, String casename) {
-		return read(recordFile(api, casename));
+		return readRecord(api, casename, true);
 	}
 	
 	private static void writeDemo() {

@@ -26,8 +26,8 @@ public class TestCaseDaoH4 extends BaseDaoH4<TestCase> implements TestCaseDao {
                 entityClazz.getSimpleName().toLowerCase());
 		return find(hql, api);
 	}
-	
-	public static void main(String[] args) {
+
+	public static void demo() {
 		ApplicationContext ctx =new ClassPathXmlApplicationContext("spring-config.xml");
 		TestCaseDao dao = (TestCaseDao) ctx.getBean("testCaseDaoH4");
 //		TestCaseDaoH4 dao = new TestCaseDaoH4();
@@ -40,8 +40,19 @@ public class TestCaseDaoH4 extends BaseDaoH4<TestCase> implements TestCaseDao {
 		tc.setP1("abc");
 		tc.setP2("ABC");
 		tc.setStatus(200);
-//		System.out.println(tc);
-		dao.save(tc);
+		System.out.println(tc);
+//		dao.save(tc);
+	}
+
+	public static void demo2() {
+		ApplicationContext ctx =new ClassPathXmlApplicationContext("spring-config.xml");
+		TestCaseDao dao = (TestCaseDao) ctx.getBean("testCaseDaoH4");
+//		TestCaseDaoH4 daoH4 = (TestCaseDaoH4) dao;
+		System.out.println(dao.findAll(TestCase.class));
+	}
+	
+	public static void main(String[] args) {
+		demo2();
 	}
 
 }

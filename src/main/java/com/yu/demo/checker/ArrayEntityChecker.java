@@ -25,7 +25,7 @@ public class ArrayEntityChecker extends EntityChecker {
 			}
 			@Override
 			public String getMessage() {
-				return String.format("EntityChecker: expect entity (%s), real entity (%s)", 
+				return String.format("ArrayEntityChecker: expect entity (%s), real entity (%s)",
 						expect, real);
 			}
 		};

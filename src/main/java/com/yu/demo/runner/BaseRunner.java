@@ -2,10 +2,9 @@ package com.yu.demo.runner;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import javax.annotation.Resource;
-
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -18,12 +17,14 @@ import com.yu.demo.util.IResult;
 import com.yu.demo.util.TestcaseSelector;
 
 public class BaseRunner extends AbstractTestNGSpringContextTests {
-	
+
 	protected IRunner runner;
-	
+
+
 	@Resource(name="tcService")
 	protected TestCaseService serv;
-	
+
+	// Copy them to the sub-class so that it can be configurable in the sub-class
 	@Resource(name="testcaseSelector")
 	public TestcaseSelector selector;
 	

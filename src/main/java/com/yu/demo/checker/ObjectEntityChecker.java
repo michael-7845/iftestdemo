@@ -49,7 +49,7 @@ public class ObjectEntityChecker extends EntityChecker {
 			}
 			@Override
 			public String getMessage() {
-				return String.format("EntityChecker: expect entity (%s), real entity (%s)", 
+				return String.format("ObjectEntityChecker: expect entity (%s), real entity (%s)",
 						expect, real);
 			}
 		};

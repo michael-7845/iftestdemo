@@ -32,7 +32,7 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://10.14.132.23:3306/autotest"/>
+        <property name="url" value="jdbc:mysql://10.14.136.60:3306/autotest"/>
         <property name="username" value="root"/>
         <property name="password" value="123123"/>
     </bean>

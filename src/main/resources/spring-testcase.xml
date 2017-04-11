@@ -35,6 +35,8 @@
           <entry key="img" value="img\d+(.*)$"/>
           <entry key="rectImg" value="img\d+(.*)$"/>
           <entry key="squareImg" value="img\d+(.*)$"/>
+          <entry key="createTime" value="()$"/> <!-- "()" means to skip the item checking -->
+          <entry key="modifyTime" value="()$"/>
         </map>
       </property>
     </bean>
@@ -44,6 +46,10 @@
     <bean id="entityChecker" class="com.yu.demo.checker.EntityChecker"/>
     <bean id="arrayEntityChecker" class="com.yu.demo.checker.ArrayEntityChecker"/>
     <bean id="objectEntityChecker" class="com.yu.demo.checker.ObjectEntityChecker"/>
+    <bean id="containEntityChecker" class="com.yu.demo.checker.ContainEntityChecker"/>
+    <bean id="regexEntityChecker" class="com.yu.demo.checker.RegexEntityChecker"/>
+
+    <!-- SAMPLERS -->
     <bean id="httpSampler" class="com.yu.demo.sampler.HttpSampler"/>
     <bean id="appGwSampler" class="com.yu.demo.sampler.AppGwSampler"/>
     
@@ -53,7 +59,7 @@
       <property name="checklist">
         <list>
           <ref bean="basicChecker"/>
-          <ref bean="entityChecker"/> <!--  --> 
+          <ref bean="entityChecker"/>
         </list>
       </property>
     </bean>
@@ -78,5 +84,9 @@
         </list>
       </property>
     </bean>
+
+    <!-- PROJECT -->
+    <bean id="mshopHttpSampler" class="com.mshop.iftest.sampler.HttpSampler"/>
+    <bean id="mshopHttpPostSampler" class="com.mshop.iftest.sampler.HttpPostSampler"/>
 
 </beans>

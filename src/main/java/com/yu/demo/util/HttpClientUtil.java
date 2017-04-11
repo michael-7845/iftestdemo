@@ -1,6 +1,7 @@
 package com.yu.demo.util;
 
-import java.io.IOException;  
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;  
 import java.net.URISyntaxException;  
 import java.util.ArrayList;
@@ -177,24 +178,54 @@ public class HttpClientUtil {
   
         return EMPTY_STR;  
     }
-    
-    public static void main(String... args) {
-    	IResult result = null;
+
+    public static void demo() {
+        IResult result = null;
 //    	result = HttpClientUtil.httpGetRequest("http://www.2345.com/about/about.htm");
 //    	System.out.println(result);
-    	
-    	result = HttpClientUtil.httpGetRequest("http://p.3.cn/prices/mgets?skuIds=J_954086&type=1");
+
+        result = HttpClientUtil.httpGetRequest("http://p.3.cn/prices/mgets?skuIds=J_954086&type=1");
 //    	System.out.println(result);
-    	
-    	Map<String, Object> params = new HashMap<String, Object>() {{
-    		put("skuIds", (Object)"J_954086");
-    		put("type", (Object)"1");
-    	}};
-    	try {
-			result = HttpClientUtil.httpGetRequest("http://p.3.cn/prices/mgets", params);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-    	System.out.println(result);
+
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("skuIds", (Object)"J_954086");
+            put("type", (Object)"1");
+        }};
+        try {
+            result = HttpClientUtil.httpGetRequest("http://p.3.cn/prices/mgets", new HashMap<String, Object>(), params);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        System.out.println(result);
+    }
+
+    static String debugCookie="pin=test_jdb;ceshi3.com=B3opkNQXIhU7w5TrYl0VRXeFsjubcuul8YLNWwiGgjk;";
+
+    public static Map<String, Object> withCookie() {
+        return new HashMap<String, Object>() {{
+            put("Cookie", (Object) FileUtil.read(new File("files/debug_cookie")));
+        }};
+    }
+
+    public static Map<String, Object> withParameter() {
+        return new HashMap<String, Object>() {{
+            put("currentPageNo", (Object) "1");
+            put("pageSize", (Object) "5");
+        }};
+    }
+
+    public static void demo2() {
+        IResult result = null;
+//        result = HttpClientUtil.httpGetRequest("http://ieasy-dev.jd.com/policy/remote/list.htm?currentPageNo=1&pageSize=5");
+        try {
+            result = HttpClientUtil.httpGetRequest("http://ieasy-dev.jd.com/policy/remote/list.htm", withCookie(), withParameter());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        System.out.println(result);
+    }
+
+    public static void main(String... args) {
+        demo2();
     }
 }  
